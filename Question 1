@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb  4 01:35:14 2024
+
+@author: user
+"""
+import pandas as pd
+df = pd.read_csv("movie_dataset.csv")
+df.columns = df.columns.str.replace(' ', '_')
+
+columns_with_nans = df.columns[df.isna().any()].tolist()
+        
+df['Metascore'].interpolate(method='linear', inplace=True)
+         
+
+mean_Revenue = df["Revenue_(Millions)"].mean()
+df["Revenue_(Millions)"].fillna(mean_Revenue, inplace=True)
+duplicate_rows = df[df.duplicated()]   
+print(df)
+
+max_value = df['Rating'].max()
+print(f"The maximum value in the column is: {max_value}")
+
+max_value_row_index = df["Rating"].idxmax()
+max_value_row = df.loc[max_value_row_index]
+print()

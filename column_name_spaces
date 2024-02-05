@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Feb  3 22:19:53 2024
+
+@author: user
+"""
+import pandas as pd
+
+df = pd.read_csv("movie_dataset.csv")
+df.columns = df.columns.str.replace(' ', '_')
+print(df)
+

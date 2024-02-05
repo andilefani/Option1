@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb  4 02:13:23 2024
+
+@author: user
+"""
+import pandas as pd
+df = pd.read_csv("movie_dataset.csv")
+df.columns = df.columns.str.replace(' ', '_')
+
+columns_with_nans = df.columns[df.isna().any()].tolist()
+        
+df['Metascore'].interpolate(method='linear', inplace=True)
+         
+
+mean_Revenue = df["Revenue_(Millions)"].mean()
+df["Revenue_(Millions)"].fillna(mean_Revenue, inplace=True)
+duplicate_rows = df[df.duplicated()]
+
+
+
+filtered_movies = df[(df['Year'] >= 2015) & (df['Year'] <= 2017)]
+average_revenue = filtered_movies["Revenue_(Millions)"].mean()
+print(f"The average revenue of movies from 2015 to 2017 is: {average_revenue}")
